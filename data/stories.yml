@@ -1,0 +1,47 @@
+version: "3.1"
+
+stories:
+
+- story: Greet and Check Balance
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: check_balance
+  - action: utter_ask_account_details
+  - intent: provide_account_details
+  - slot_was_set:
+      - account_number: "123456"
+      - name: "Krishna"
+  - action: action_check_balance
+
+- story: Greet, Provide Account Details, and Check Balance
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: provide_account_details
+  - slot_was_set:
+      - account_number: "123456"
+      - name: "Krishna"
+  - action: action_check_balance
+
+- story: Greet, Provide Account Details, and Check Transaction History
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: provide_account_details
+  - slot_was_set:
+      - account_number: "123456"
+      - name: "Krishna"
+  - intent: transaction_history
+  - action: action_transaction_history
+
+- story: Greet, Provide Wrong Account Details, and Handle Error
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: provide_account_details
+  - slot_was_set:
+      - account_number: "999999"  # Wrong account number
+      - name: "John"
+  - action: action_check_balance
+  - action: utter_account_not_found
